@@ -44,7 +44,7 @@ abstract class Vehicle {
     
     public abstract double calculateFare(double distance);
 
-    // Concrete method
+    
     public void getVehicleDetails() {
         System.out.println("Vehicle ID: " + vehicleId +
                            ", Driver: " + driverName +
@@ -53,7 +53,7 @@ abstract class Vehicle {
     }
 }
 
-// Subclass: Car
+
 class Car extends Vehicle implements GPS {
     public Car(String vehicleId, String driverName, double ratePerKm, String location) {
         super(vehicleId, driverName, ratePerKm, location);
@@ -61,7 +61,7 @@ class Car extends Vehicle implements GPS {
 
     @Override
     public double calculateFare(double distance) {
-        return getRatePerKm() * distance + 50; // base charge
+        return getRatePerKm() * distance + 50; 
     }
 
     @Override
@@ -75,7 +75,7 @@ class Car extends Vehicle implements GPS {
     }
 }
 
-// Subclass: Bike
+
 class Bike extends Vehicle implements GPS {
     public Bike(String vehicleId, String driverName, double ratePerKm, String location) {
         super(vehicleId, driverName, ratePerKm, location);
@@ -83,7 +83,7 @@ class Bike extends Vehicle implements GPS {
 
     @Override
     public double calculateFare(double distance) {
-        return getRatePerKm() * distance; // no base charge
+        return getRatePerKm() * distance;
     }
 
     @Override
@@ -97,7 +97,6 @@ class Bike extends Vehicle implements GPS {
     }
 }
 
-// Subclass: Auto
 class Auto extends Vehicle implements GPS {
     public Auto(String vehicleId, String driverName, double ratePerKm, String location) {
         super(vehicleId, driverName, ratePerKm, location);
@@ -105,7 +104,7 @@ class Auto extends Vehicle implements GPS {
 
     @Override
     public double calculateFare(double distance) {
-        return getRatePerKm() * distance + 20; // minimum fare
+        return getRatePerKm() * distance + 20;
     }
 
     @Override
@@ -119,9 +118,8 @@ class Auto extends Vehicle implements GPS {
     }
 }
 
-// Main Class
 public class RideHailingApp {
-    // Polymorphic fare calculation
+   
     public static void processRide(Vehicle v, double distance) {
         v.getVehicleDetails();
         double fare = v.calculateFare(distance);
@@ -144,7 +142,7 @@ public class RideHailingApp {
         Vehicle[] rides = {v1, v2, v3};
 
         for (Vehicle v : rides) {
-            processRide(v, 12); // example: 12 km trip
+            processRide(v, 12); 
         }
     }
 }
