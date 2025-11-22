@@ -1,0 +1,65 @@
+package com.Queue;
+
+import java.util.*;
+
+class Booking implements Comparable<Booking> {
+    String userId;
+    boolean vip;
+
+    Booking(String userId, boolean vip) {
+        this.userId = userId;
+        this.vip = vip;
+    }
+
+    public int compareTo(Booking b) {
+        return Boolean.compare(b.vip, this.vip);
+    }
+
+    public String toString() {
+        return userId + (vip ? " (VIP)" : "");
+    }
+}
+
+public class TicketReservationSystem {
+    public static void main(String[] args) {
+
+        List<Booking> allBookings = new ArrayList<>();
+        Set<String> registeredUsers = new HashSet<>();
+        Queue<Booking> bookingQueue = new LinkedList<>();
+        PriorityQueue<Booking> vipQueue = new PriorityQueue<>();
+
+        registerUser("U1", registeredUsers);
+        registerUser("U2", registeredUsers);
+        registerUser("U3", registeredUsers);
+        registerUser("U2", registeredUsers);
+
+        acceptBooking("U1", false, bookingQueue, vipQueue);
+        acceptBooking("U2", true, bookingQueue, vipQueue);
+        acceptBooking("U3", false, bookingQueue, vipQueue);
+        acceptBooking("U1", true, bookingQueue, vipQueue);
+
+        while (!vipQueue.isEmpty()) {
+            allBookings.add(vipQueue.poll());
+        }
+
+        while (!bookingQueue.isEmpty()) {
+            allBookings.add(bookingQueue.poll());
+        }
+
+        System.out.println("Registered Users:");
+        System.out.println(registeredUsers);
+
+        System.out.println("\nFinal Bookings:");
+        for (Booking b : allBookings) System.out.println(b);
+    }
+
+    static void registerUser(String userId, Set<String> users) {
+        users.add(userId);
+    }
+
+    static void acceptBooking(String userId, boolean vip, Queue<Booking> q, PriorityQueue<Booking> pq) {
+        Booking b = new Booking(userId, vip);
+        if (vip) pq.add(b);
+        else q.add(b);
+    }
+}
